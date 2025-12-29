@@ -1,16 +1,13 @@
 pipeline {
     agent any
-
     // triggers {
     //     pollSCM('H * * * *')
     // }
-
     options {
         // 병렬 빌드 금지 → 동일 Job은 항상 직렬실행
         disableConcurrentBuilds()
         timestamps()
     }
-
     stages {
         // stage('Github Clone'){
         //     steps {
@@ -43,6 +40,7 @@ pipeline {
                     -Force
                 '''
             }
+        }
         stage('Deploy') {
             steps {
                 powershell '''
