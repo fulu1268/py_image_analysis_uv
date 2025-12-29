@@ -1,0 +1,25 @@
+[project]
+name = "py-c4p-image-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "atlassian-python-api==3.41.16",
+    "dataframe-image>=0.2.7",
+    "ipykernel>=7.1.0",
+    "ipython>=9.8.0",
+    "ipywidgets>=8.1.8",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.8",
+    "nbconvert>=7.16.6",
+    "notebook>=7.5.0",
+    "numpy>=2.3.5",
+    "opencv-python>=4.11.0.86",
+    "pandas>=2.3.3",
+    "papermill>=2.6.0",
+    "tqdm>=4.67.1",
+]
+
+[tool.uv]
+index-url = "https://pypi.org/simple"
