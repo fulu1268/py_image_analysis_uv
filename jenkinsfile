@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    // triggers {
+    //     pollSCM('H * * * *')
+    // }
+
+    options {
+        // 병렬 빌드 금지 → 동일 Job은 항상 직렬실행
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
+    stages {
+        // stage('Github Clone'){
+        //     steps {
+        //         deleteDir() // clean up workspace
+        //         git credentialsId : 'fulu1268@gmail.com',
+        //             branch : 'main',
+        //             url : 'https://github.com/fulu1268/xilinx_fifo_test.git'
+        //     }
+        // }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Show README') {
+            steps {
+                script {
+                    def readme = readFile 'README.md'
+                    currentBuild.rawBuild.project.description = "<pre>${readme}</pre>"
+                }
+            }
+        }
+        stage('Package') {
+            steps {
+                powershell '''
+                $zipName = "py_image_analysis_uv${env:BUILD_NUMBER}.zip"
+                Compress-Archive `
+                    -Path src, requirements.txt, README.md `
+                    -DestinationPath $zipName `
+                    -Force
+                '''
+            }
+        stage('Deploy') {
+            steps {
+                powershell '''
+                Copy-Item `
+                  py_image_analysis_uv${env:BUILD_NUMBER}.zip `
+                  \\\\DEPLOY_SERVER\\deploy\\
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: '*.zip, README.md',fingerprint: true
+            // archiveArtifacts artifacts: 'xilinx_fifo_test.runs/impl_1/*.bit', fingerprint: true
+        }
+    }
+}
