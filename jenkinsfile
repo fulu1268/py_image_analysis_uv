@@ -25,8 +25,8 @@ pipeline {
         stage('Show README') {
             steps {
                 script {
-                    def readme = readFile 'README.md'
-                    currentBuild.rawBuild.project.description = "<pre>${readme}</pre>"
+                    echo '------ README.md ------'
+                    echo readfile('README.md')
                 }
             }
         }
