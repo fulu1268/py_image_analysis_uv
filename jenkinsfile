@@ -22,7 +22,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Show README') {
+        stage('Read README File') {
             steps {
                 script {
                     echo '------ README.md ------'
@@ -33,20 +33,11 @@ pipeline {
         stage('Package') {
             steps {
                 powershell '''
-                $zipName = "py_image_analysis_uv${env:BUILD_NUMBER}.zip"
+                $zipName = "py_image_analysis_uv_${env:BUILD_NUMBER}.zip"
                 Compress-Archive `
                     -Path * `
                     -DestinationPath $zipName `
                     -Force
-                '''
-            }
-        }
-        stage('Deploy') {
-            steps {
-                powershell '''
-                Copy-Item `
-                  py_image_analysis_uv${env:BUILD_NUMBER}.zip `
-                  \\\\DEPLOY_SERVER\\deploy\\
                 '''
             }
         }
