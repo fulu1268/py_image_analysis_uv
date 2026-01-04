@@ -17,6 +17,11 @@ pipeline {
         //             url : 'https://github.com/fulu1268/xilinx_fifo_test.git'
         //     }
         // }
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
