@@ -35,7 +35,7 @@ pipeline {
                 powershell '''
                 $zipName = "py_image_analysis_uv${env:BUILD_NUMBER}.zip"
                 Compress-Archive `
-                    -Path src, requirements.txt, README.md `
+                    -Path * `
                     -DestinationPath $zipName `
                     -Force
                 '''
