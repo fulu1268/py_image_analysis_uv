@@ -9,14 +9,6 @@ pipeline {
         timestamps()
     }
     stages {
-        // stage('Github Clone'){
-        //     steps {
-        //         deleteDir() // clean up workspace
-        //         git credentialsId : 'fulu1268@gmail.com',
-        //             branch : 'main',
-        //             url : 'https://github.com/fulu1268/xilinx_fifo_test.git'
-        //     }
-        // }
         stage('Clean Workspace') {
             steps {
                 deleteDir()
@@ -27,15 +19,7 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('Read README File') {
-        //     steps {
-        //         script {
-        //             echo '------ README.md ------'
-        //             echo readFile("README.md")
-        //         }
-        //     }
-        // }
-        stage('Set Job Description') {
+        stage('Read README File') {
             steps {
                 script {
                     def readme = readFile('README.md')
