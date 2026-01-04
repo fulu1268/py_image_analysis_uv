@@ -39,9 +39,7 @@ pipeline {
             steps {
                 script {
                     def readme = readFile('README.md')
-                    currentBuild.rawBuild.project.setDescription(
-                        "<pre>${readme}</pre>"
-                    )
+                    currentBuild.description = "<pre>${readme}</pre>"
                 }
             }
         }
