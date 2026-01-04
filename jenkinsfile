@@ -27,11 +27,21 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Read README File') {
+        // stage('Read README File') {
+        //     steps {
+        //         script {
+        //             echo '------ README.md ------'
+        //             echo readFile("README.md")
+        //         }
+        //     }
+        // }
+        stage('Set Job Description') {
             steps {
                 script {
-                    echo '------ README.md ------'
-                    echo readFile("README.md")
+                    def readme = readFile('README.md')
+                    currentBuild.rawBuild.project.setDescription(
+                        "<pre>${readme}</pre>"
+                    )
                 }
             }
         }
