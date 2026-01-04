@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo '------ README.md ------'
-                    echo readfile("${env.WORKSPACE}/README.md")
+                    echo readFile("README.md")
                 }
             }
         }
