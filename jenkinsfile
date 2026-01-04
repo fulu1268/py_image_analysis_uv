@@ -47,9 +47,9 @@ pipeline {
             steps {
                 powershell '''
                 $zipName = "py_image_analysis_uv_${env:BUILD_NUMBER}.zip"
-                $paths = @("*", ".git")
+                $items = Get-ChildItem -LiteralPath . -Force
                 Compress-Archive `
-                    -Path * `
+                    -Path $items `
                     -DestinationPath $zipName `
                     -Force
                 '''
